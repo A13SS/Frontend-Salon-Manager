@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <div>
+      <div>
+        <h3>Reservar Nueva Cita</h3>
+      </div>
+      <div>
+        <form (ngSubmit)="onSubmit()">
+          <div>
+            <!-- Profesional -->
+            <div>
+              <label for="profesionalId">Profesional</label>
+              <select
+                id="profesionalId"
+                [(ngModel)]="citaData.profesionalId"
+                name="profesionalId"
+                required
+              >
+                <option value="">Seleccione un profesional</option>
+                <option *ngFor="let prof of profesionales" [value]="prof.id">
+                  {{ prof.nombre }}
+                </option>
+              </select>
+              <div *ngIf="loadingProfesionales">
+                <span></span>
+                Cargando profesionales...
+              </div>
+            </div>
+
+            <!-- Servicio -->
+            <div>
+              <label for="servicioId">Servicio</label>
+              <select id="servicioId" [(ngModel)]="citaData.servicioId" name="servicioId" required>
+                <option value="">Seleccione un servicio</option>
+                <option *ngFor="let serv of servicios" [value]="serv.id">
+                  {{ serv.nombre }} - {{ serv.precio | number: '1.2-2' }}€ ({{ serv.duracionMin }}
+                  min)
+                </option>
+              </select>
+              <div *ngIf="loadingServicios">
+                <span></span>
+                Cargando servicios...
+              </div>
+            </div>
+          </div>
+
+          <!-- Fecha y Hora -->
+          <div>
+            <label for="fechaInicio">Fecha y Hora</label>
+            <input
+              type="datetime-local"
+              id="fechaInicio"
+              [(ngModel)]="citaData.fechaInicio"
+              name="fechaInicio"
+              required
+              [min]="fechaMinima"
+            />
+            <small>Seleccione una fecha y hora disponible</small>
+          </div>
+
+          <!-- Alergias -->
+          <div>
+            <label for="alergias">Alergias (opcional)</label>
+            <textarea
+              id="alergias"
+              [(ngModel)]="citaData.alergias"
+              name="alergias"
+              rows="2"
+              placeholder="Alergia al gel de peinado..."
+            ></textarea>
+          </div>
+
+          <!-- Observaciones -->
+          <div>
+            <label for="observaciones">Observaciones (opcional)</label>
+            <textarea
+              id="observaciones"
+              [(ngModel)]="citaData.observaciones"
+              name="observaciones"
+              rows="3"
+              placeholder="Primera visita, preferiblemente por la mañana..."
+            ></textarea>
+          </div>
+
+          <!-- Mensaje de error -->
+          <div *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Botones -->
+          <div>
+            <button type="submit" [disabled]="loading || loadingServicios || loadingProfesionales">
+              <span *ngIf="loading"></span>
+              {{ loading ? 'Creando cita...' : 'Reservar Cita' }}
+            </button>
+            <a routerLink="/citas">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

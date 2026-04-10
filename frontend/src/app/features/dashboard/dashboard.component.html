@@ -1,0 +1,111 @@
+<div>
+  <div>
+    <div>
+      <div>
+        <h2>Bienvenido al Salon Manager</h2>
+      </div>
+      <div>
+        <h4>
+          Hola, <strong>{{ user?.nombre }}</strong>
+        </h4>
+        <p>
+          <span
+            class="badge 
+            {{ esCliente ? 'bg-success' : esProfesional ? 'bg-primary' : 'bg-danger' }}"
+          >
+            {{ user?.rol }}
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- CLIENTE -->
+    <div *ngIf="esCliente">
+      <div>
+        <div>
+          <div>
+            <h5>Mis Citas</h5>
+            <p>Ver y gestionar tus citas reservadas</p>
+            <a routerLink="/citas"> Ver Citas </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <div>
+            <h5>Nueva Cita</h5>
+            <p>Reserva una nueva cita con nuestros profesionales</p>
+            <a routerLink="/citas/crear">Crear Cita</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFESIONAL-->
+    <div *ngIf="esProfesional">
+      <div>
+        <div>
+          <div>
+            <h5>Mis Citas</h5>
+            <p>Ver citas asignadas</p>
+            <a routerLink="/citas">Ver Citas</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <div>
+            <h5>Servicios</h5>
+            <p>Ver servicios ofertados</p>
+            <a routerLink="/servicios">Ver Servicios</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <div>
+            <h5>Gestionar Citas</h5>
+            <p>Confirmar y atender citas</p>
+            <a routerLink="/citas">Gestionar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div *ngIf="esAdmin">
+      <div>
+        <div>
+          <div>
+            <h5>Usuarios</h5>
+            <p>Gestionar usuarios y roles</p>
+            <a routerLink="/usuarios">Gestionar Usuarios</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <div>
+            <h5>Todas las Citas</h5>
+            <p>Ver y gestionar todas las citas</p>
+            <a routerLink="/citas">Ver Citas</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <div>
+            <h5>Servicios</h5>
+            <p>Ver todos los servicios</p>
+            <a routerLink="/servicios">Ver Servicios</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

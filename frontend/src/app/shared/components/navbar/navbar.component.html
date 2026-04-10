@@ -1,0 +1,45 @@
+<nav>
+  <div>
+    <a routerLink="/dashboard">Salon Manager</a>
+
+    <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span></span>
+    </button>
+
+    <div id="navbarNav">
+      <ul>
+        <li *ngIf="authService.isAuthenticated()">
+          <a routerLink="/dashboard">Dashboard</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated()">
+          <a routerLink="/citas">Mis Citas</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated() && user?.rol === 'CLIENTE'">
+          <a routerLink="/citas/crear">Nueva Cita</a>
+        </li>
+        <li
+          *ngIf="
+            authService.isAuthenticated() && (user?.rol === 'PROFESIONAL' || user?.rol === 'ADMIN')
+          "
+        >
+          <a routerLink="/servicios">Servicios</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated() && user?.rol === 'ADMIN'">
+          <a routerLink="/usuarios">Usuarios</a>
+        </li>
+      </ul>
+
+      <ul>
+        <li *ngIf="user">
+          <span> {{ user.nombre }} ({{ user.rol }}) </span>
+        </li>
+        <li *ngIf="authService.isAuthenticated()">
+          <button (click)="logout()">Cerrar Sesión</button>
+        </li>
+        <li *ngIf="!authService.isAuthenticated()">
+          <a routerLink="/login">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

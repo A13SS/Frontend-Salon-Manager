@@ -1,0 +1,88 @@
+<div>
+  <div>
+    <div>
+      <h2><i></i>Gestión de Usuarios</h2>
+      <span>{{ usuarios.length }} usuarios</span>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading">
+      <div role="status">
+        <span>Cargando...</span>
+      </div>
+      <p>Cargando usuarios...</p>
+    </div>
+
+    <!-- Sin datos -->
+    <div *ngIf="!loading && usuarios.length === 0"><i></i>No hay usuarios registrados.</div>
+
+    <!-- Tabla de usuarios -->
+    <div *ngIf="!loading && usuarios.length > 0">
+      <div>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuarios">
+                <td>
+                  <strong>{{ usuario.id }}</strong>
+                </td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>
+                  <select
+                    *ngIf="canChangeRole(usuario)"
+                    [(ngModel)]="usuario.rol"
+                    (change)="cambiarRol(usuario)"
+                    [class]="getRolClass(usuario.rol)"
+                  >
+                    <option value="CLIENTE">CLIENTE</option>
+                    <option value="PROFESIONAL">PROFESIONAL</option>
+                    <option value="ADMIN">ADMIN</option>
+                  </select>
+                  <span *ngIf="!canChangeRole(usuario)" [class]="getRolClass(usuario.rol)">
+                    {{ usuario.rol }}
+                  </span>
+                </td>
+                <td>
+                  <span [class]="usuario.activo ? 'cliente' : 'admin'">
+                    {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </td>
+                <td>
+                  <div role="group">
+                    <button
+                      *ngIf="usuario.activo"
+                      (click)="borrarLogico(usuario)"
+                      title="Desactivar usuario"
+                    >
+                      <i>Desactivar</i>
+                    </button>
+                    <button
+                      *ngIf="!usuario.activo"
+                      (click)="borrarFisico(usuario)"
+                      title="Eliminar permanentemente"
+                    >
+                      <i>Eliminar</i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
