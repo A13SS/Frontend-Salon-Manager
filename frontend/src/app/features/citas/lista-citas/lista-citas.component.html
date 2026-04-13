@@ -17,6 +17,12 @@
 
     <div *ngIf="!loading && citas.length === 0">No tienes citas programadas.</div>
 
+    <div *ngIf="user?.rol === 'PROFESIONAL' || user?.rol === 'ADMIN'">
+      <input type="date" [(ngModel)]="fechaBusqueda" />
+      <button (click)="buscarPorFecha()" [disabled]="!fechaBusqueda">Buscar</button>
+      <button (click)="limpiarFecha()">Limpiar</button>
+    </div>
+
     <div *ngIf="!loading && user && citas.length > 0">
       <table>
         <thead>
@@ -61,7 +67,6 @@
                 <button *ngIf="cita.estado === 'PENDIENTE'" (click)="cancelarCita(cita.id)">
                   Cancelar
                 </button>
-                <span *ngIf="cita.estado !== 'PENDIENTE'">-</span>
               </ng-container>
             </td>
           </tr>

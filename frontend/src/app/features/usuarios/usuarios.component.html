@@ -1,8 +1,39 @@
 <div>
   <div>
     <div>
-      <h2><i></i>Gestión de Usuarios</h2>
+      <h2>Gestión de Usuarios</h2>
       <span>{{ usuarios.length }} usuarios</span>
+    </div>
+
+    <!-- Buscar usuario por ID -->
+    <div>
+      <div>
+        <div>
+          <div>
+            <label for="searchId"> Buscar usuario por ID </label>
+            <div>
+              <input
+                type="number"
+                id="searchId"
+                [(ngModel)]="searchId"
+                placeholder="Ej: 1, 2, 3..."
+                (keyup.enter)="buscarPorId()"
+              />
+              <button type="button" (click)="buscarPorId()" [disabled]="searchLoading || !searchId">
+                <span *ngIf="searchLoading"></span>
+                <span *ngIf="!searchLoading">Buscar</span>
+              </button>
+              <button type="button" (click)="limpiarBusqueda()">Limpiar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mensaje de error en búsqueda -->
+        <div *ngIf="searchError">
+          <i></i>
+          {{ searchError }}
+        </div>
+      </div>
     </div>
 
     <!-- Loading -->

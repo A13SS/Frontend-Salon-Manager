@@ -14,8 +14,12 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
+  usuariosFiltrados: Usuario[] = [];
   loading = true;
   currentUser: any;
+  searchId: number | null = null;
+  searchLoading = false;
+  searchError = '';
 
   constructor(
     private usuarioService: UsuarioService,
@@ -39,6 +43,36 @@ export class UsuariosComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  buscarPorId(): void {
+    if (!this.searchId) {
+      this.cargarUsuarios();
+      return;
+    }
+
+    this.searchLoading = true;
+    this.searchError = '';
+
+    this.usuarioService.buscarPorId(this.searchId).subscribe({
+      next: (usuario) => {
+        this.usuarios = [usuario];
+        this.usuariosFiltrados = [usuario];
+        this.searchLoading = false;
+      },
+      error: (error) => {
+        this.searchError = `Usuario con ID ${this.searchId} no encontrado`;
+        this.usuarios = [];
+        this.usuariosFiltrados = [];
+        this.searchLoading = false;
+      }
+    });
+  }
+
+  limpiarBusqueda(): void {
+    this.searchId = null;
+    this.searchError = '';
+    this.cargarUsuarios();
   }
 
   canChangeRole(usuario: Usuario): boolean {

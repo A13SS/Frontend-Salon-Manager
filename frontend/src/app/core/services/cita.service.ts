@@ -23,6 +23,10 @@ export class CitaService {
     return this.http.get<Cita[]>(`${this.apiUrl}/profesional/${profesionalId}`);
   }
 
+  getCitasPorFecha(fecha: string): Observable<Cita[]> {
+  return this.http.get<Cita[]>(`${this.apiUrl}/fecha?fecha=${fecha}T00:00:00`);
+}
+
   cancelarCita(id: number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/cancelar`, {});
   }

@@ -4,11 +4,13 @@ import { CitaService } from '../../../core/services/cita.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Cita } from '../../../shared/models/cita.model';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-lista-citas',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './lista-citas.component.html',
   styleUrls: ['./lista-citas.component.scss']
 })
@@ -17,6 +19,7 @@ export class ListaCitasComponent implements OnInit {
   loading = true;
   errorMessage = '';
   user: any = null;
+  fechaBusqueda: string = '';
 
   constructor(
     private citaService: CitaService,
@@ -65,6 +68,27 @@ export class ListaCitasComponent implements OnInit {
         }
       });
     }
+  }
+
+   buscarPorFecha(): void {
+    if (!this.fechaBusqueda) return;
+    this.loading = true;
+    this.errorMessage = '';
+    this.citaService.getCitasPorFecha(this.fechaBusqueda).subscribe({
+      next: (data) => {
+        this.citas = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Error al buscar citas por fecha';
+        this.loading = false;
+      }
+    });
+  }
+
+  limpiarFecha(): void {
+    this.fechaBusqueda = '';
+    this.cargarCitas();
   }
 
   confirmarCita(id: number): void {
