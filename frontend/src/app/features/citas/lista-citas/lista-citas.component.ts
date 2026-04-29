@@ -125,6 +125,10 @@ export class ListaCitasComponent implements OnInit {
         },
         error: (error) => {
           alert('Error al eliminar la cita');
+
+          setTimeout(() => {
+          this.cargarCitas();
+        }, 200);
         }
       });
     }

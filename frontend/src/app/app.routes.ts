@@ -21,6 +21,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   { 
+    path: 'citas/gestionar', 
+    loadComponent: () => import('./features/citas/lista-citas/lista-citas.component').then(m => m.ListaCitasComponent),
+    canActivate: [authGuard]
+  },
+  { 
     path: 'usuarios', 
     loadComponent: () => import('./features/usuarios/usuarios.component').then(m => m.UsuariosComponent),
     canActivate: [authGuard]

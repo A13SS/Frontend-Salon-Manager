@@ -1,110 +1,99 @@
-<div>
-  <div>
-    <div>
-      <div>
-        <h2>Bienvenido al Salon Manager</h2>
+<div class="dashboard">
+
+  <!-- Carrusel de imagenes de modelos -->
+  <div class="carrusel">
+    <div class="carrusel-track"
+      [style.transform]="'translateX(-' + indiceActual * 100 + '%)'">
+      <div class="carrusel-slide" *ngFor="let imagen of imagenes">
+        <img [src]="'../../../../assets/images/' + imagen + '.jpg'" />
       </div>
-      <div>
-        <h4>
-          Hola, <strong>{{ user?.nombre }}</strong>
-        </h4>
+    </div>
+
+    <button class="btn-carrusel btn-prev" (click)="imagenAnterior()">
+      <span>&#10094;</span>
+    </button>
+    <button class="btn-carrusel btn-next" (click)="imagenSiguiente()">
+      <span>&#10095;</span>
+    </button>
+
+    <div class="indicadores">
+      <span class="indicador" *ngFor="let imagen of imagenes; let i = index"
+        [class.activo]="i === indiceActual" (click)="irAImagen(i)">
+      </span>
+    </div>
+  </div>
+
+  <div class="contenido">
+    <div class="bienvenida">
+      <h2>Bienvenido al Salon Manager</h2>
+      <div class="usuario">
+        <h4>Hola, <strong>{{ user?.nombre }}</strong></h4>
         <p>
-          <span
-            class="badge 
-            {{ esCliente ? 'bg-success' : esProfesional ? 'bg-primary' : 'bg-danger' }}"
-          >
+          <span class="badge" [ngClass]="{
+              'badge-cliente': esCliente, 
+              'badge-profesional': esProfesional, 
+              'badge-admin': esAdmin
+            }">
             {{ user?.rol }}
           </span>
         </p>
       </div>
     </div>
 
-    <!-- CLIENTE -->
-    <div *ngIf="esCliente">
-      <div>
-        <div>
-          <div>
-            <h5>Mis Citas</h5>
-            <p>Ver y gestionar tus citas reservadas</p>
-            <a routerLink="/citas"> Ver Citas </a>
-          </div>
-        </div>
+    <!-- Cliente -->
+    <div *ngIf="esCliente" class="seccion">
+      <div class="tarjeta">
+        <h5>Mis Citas</h5>
+        <p>Ver y gestionar tus citas reservadas</p>
+        <a routerLink="/citas" class="btn">Ver Citas</a>
       </div>
 
-      <div>
-        <div>
-          <div>
-            <h5>Nueva Cita</h5>
-            <p>Reserva una nueva cita con nuestros profesionales</p>
-            <a routerLink="/citas/crear">Crear Cita</a>
-          </div>
-        </div>
+      <div class="tarjeta">
+        <h5>Nueva Cita</h5>
+        <p>Reserva una nueva cita con nuestros profesionales</p>
+        <a routerLink="/citas/crear" class="btn">Crear Cita</a>
       </div>
     </div>
 
-    <!-- PROFESIONAL-->
-    <div *ngIf="esProfesional">
-      <div>
-        <div>
-          <div>
-            <h5>Mis Citas</h5>
-            <p>Ver citas asignadas</p>
-            <a routerLink="/citas">Ver Citas</a>
-          </div>
-        </div>
+    <!-- Profesional -->
+    <div *ngIf="esProfesional" class="seccion">
+      <div class="tarjeta">
+        <h5>Mis Citas</h5>
+        <p>Ver citas asignadas</p>
+        <a routerLink="/citas" class="btn">Ver Citas</a>
       </div>
 
-      <div>
-        <div>
-          <div>
-            <h5>Servicios</h5>
-            <p>Ver servicios ofertados</p>
-            <a routerLink="/servicios">Ver Servicios</a>
-          </div>
-        </div>
+      <div class="tarjeta">
+        <h5>Servicios</h5>
+        <p>Ver servicios ofertados</p>
+        <a routerLink="/servicios" class="btn">Ver Servicios</a>
       </div>
 
-      <div>
-        <div>
-          <div>
-            <h5>Gestionar Citas</h5>
-            <p>Confirmar y atender citas</p>
-            <a routerLink="/citas">Gestionar</a>
-          </div>
-        </div>
+      <div class="tarjeta">
+        <h5>Gestionar Citas</h5>
+        <p>Confirmar y atender citas</p>
+        <a routerLink="/citas" class="btn">Gestionar</a>
       </div>
     </div>
 
-    <!-- ADMIN -->
-    <div *ngIf="esAdmin">
-      <div>
-        <div>
-          <div>
-            <h5>Usuarios</h5>
-            <p>Gestionar usuarios y roles</p>
-            <a routerLink="/usuarios">Gestionar Usuarios</a>
-          </div>
-        </div>
+    <!-- Admin -->
+    <div *ngIf="esAdmin" class="seccion">
+      <div class="tarjeta">
+        <h5>Usuarios</h5>
+        <p>Gestionar usuarios y roles</p>
+        <a routerLink="/usuarios" class="btn">Gestionar Usuarios</a>
       </div>
 
-      <div>
-        <div>
-          <div>
-            <h5>Todas las Citas</h5>
-            <p>Ver y gestionar todas las citas</p>
-            <a routerLink="/citas">Ver Citas</a>
-          </div>
-        </div>
+      <div class="tarjeta">
+        <h5>Todas las Citas</h5>
+        <p>Ver y gestionar todas las citas</p>
+        <a routerLink="/citas" class="btn">Ver Citas</a>
       </div>
 
-      <div>
-        <div>
-          <div>
-            <h5>Servicios</h5>
-            <p>Ver todos los servicios</p>
-            <a routerLink="/servicios">Ver Servicios</a>
-          </div>
-        </div>
+      <div class="tarjeta">
+        <h5>Servicios</h5>
+        <p>Ver todos los servicios</p>
+        <a routerLink="/servicios" class="btn">Ver Servicios</a>
       </div>
     </div>
   </div>

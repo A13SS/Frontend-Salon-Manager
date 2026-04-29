@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cita, CrearCitaRequest } from '../../shared/models/cita.model';
+
+export interface Hueco {
+  hora: string;
+  disponible: boolean;  // true = libre, false = ocupado
+  estado: string;  // "LIBRE" o "OCUPADO"
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +31,17 @@ export class CitaService {
 
   getCitasPorFecha(fecha: string): Observable<Cita[]> {
   return this.http.get<Cita[]>(`${this.apiUrl}/fecha?fecha=${fecha}T00:00:00`);
-}
+  }
+
+  getHuecosDisponibles(fecha: string, profesionalId: number, servicioId: number): Observable<Hueco[]> {
+    const params = new HttpParams()
+      .set('fecha', fecha)
+      .set('profesionalId', profesionalId.toString())
+      .set('servicioId', servicioId.toString());
+    
+    return this.http.get<Hueco[]>(`${this.apiUrl}/huecos-disponibles`, { params });
+  }
+
 
   cancelarCita(id: number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/cancelar`, {});

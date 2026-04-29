@@ -1,0 +1,256 @@
+$rosa: #D4336F;
+$rosa-oscuro: #B8295F;
+$azul-oscuro: #2C3E5A;
+$azul-claro: #34495E;
+$gris-claro: #F5F5F5;
+$gris: #95A5A6;
+$blanco: #FFFFFF;
+$exito: #27AE60;
+$advertencia: #F39C12;
+$peligro: #E74C3C;
+$info: #3498DB;
+//Contenedor principal
+.contenedor {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+//Encabezado con título y botón de nueva cita
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid $gris-claro;
+    h2 {
+        color: $azul-oscuro;
+        font-size: 2rem;
+        margin: 0;
+        font-weight: 700;
+    }
+    a {
+        padding: 12px 24px;
+        background: linear-gradient(135deg, $rosa 0%, $rosa-oscuro 100%);
+        color: $blanco;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 51, 111, 0.4);
+        }
+    }
+}
+
+//Loading
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: $gris;
+    font-size: 1.1rem;
+}
+
+//Mensaje de error
+.error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: $peligro;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid $peligro;
+    font-weight: 500;
+}
+
+//Mensaje de sin citas
+.sin-citas {
+    text-align: center;
+    padding: 60px 20px;
+    color: $gris;
+    font-size: 1.1rem;
+    background-color: $gris-claro;
+    border-radius: 10px;
+}
+
+//Filtro de fecha
+.filtro-fecha {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: $gris-claro;
+    border-radius: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    input[type="date"] {
+        padding: 10px 14px;
+        border: 2px solid #E0E0E0;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        min-width: 180px;
+        &:focus {
+            outline: none;
+            border-color: $rosa;
+        }
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:first-of-type {
+            background-color: $rosa;
+            color: $blanco;
+            &:hover:not(:disabled) {
+                background-color: $rosa-oscuro;
+                transform: translateY(-2px);
+            }
+        }
+        &:last-of-type {
+            background-color: $gris;
+            color: $blanco;
+            &:hover {
+                background-color: $azul-oscuro;
+            }
+        }
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+//Tabla de citas
+.tabla-citas {
+    width: 100%;
+    background: $blanco;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+    thead {
+        background: linear-gradient(135deg, $rosa 0%, $azul-oscuro 100%);
+        color: $blanco;
+        th {
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid $gris-claro;
+            transition: background-color 0.3s ease;
+            &:hover {
+                background-color: rgba(212, 51, 111, 0.05);
+            }
+            &:last-child {
+                border-bottom: none;
+            }
+            td {
+                padding: 16px 12px;
+                color: $azul-oscuro;
+                font-size: 0.95rem;
+            }
+        }
+    }
+}
+
+//Badge de estado
+.estado {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    &-pendiente {
+        background-color: rgba(243, 156, 18, 0.15);
+        color: $advertencia;
+    }
+    &-confirmada {
+        background-color: rgba(52, 152, 219, 0.15);
+        color: $info;
+    }
+    &-atendida {
+        background-color: rgba(39, 174, 96, 0.15);
+        color: $exito;
+    }
+    &-cancelada {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: $peligro;
+    }
+}
+
+//Botones de accion
+.acciones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    button {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &.btn-confirmar {
+            background-color: $info;
+            color: $blanco;
+            &:hover {
+                background-color: darken($info, 10%);
+                transform: translateY(-2px);
+            }
+        }
+        &.btn-atender {
+            background-color: $exito;
+            color: $blanco;
+            &:hover {
+                background-color: darken($exito, 10%);
+                transform: translateY(-2px);
+            }
+        }
+        &.btn-cancelar {
+            background-color: $peligro;
+            color: $blanco;
+            &:hover {
+                background-color: darken($peligro, 10%);
+                transform: translateY(-2px);
+            }
+        }
+        &.btn-eliminar {
+            background-color: $gris;
+            color: $blanco;
+            &:hover {
+                background-color: $azul-oscuro;
+                transform: translateY(-2px);
+            }
+        }
+    }
+}
+
+//Animaciones
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tabla-citas,
+.sin-citas,
+.error {
+    animation: fadeIn 0.4s ease forwards;
+}

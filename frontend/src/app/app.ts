@@ -1,13 +1,21 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('frontend');
+
+  constructor(private router: Router) {}
+  
+  mostrarNavbar(): boolean {
+    const url = this.router.url;
+    return !url.includes('/login') && !url.includes('/registro');
+  }
 }

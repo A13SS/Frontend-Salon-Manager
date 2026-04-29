@@ -1,0 +1,119 @@
+//Huecos libres
+.hueco-libre {
+  background-color: #28a745;
+  color: white;
+  border: 2px solid #28a745;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hueco-libre:hover {
+  background-color: #218838;
+}
+
+//Huecos ocupados
+.hueco-ocupado {
+  background-color: #dc3545;
+  color: white;
+  border: 2px solid #dc3545;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+//Huecos seleccionados
+.hueco-seleccionado {
+  background-color: #007bff;
+  border-color: #0056b3;
+  color: white;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.4);
+  transform: scale(1.1);
+  font-weight: 700;
+  animation: pulse 0.5s ease;
+}
+
+.hueco-seleccionado:hover {
+  background-color: #0056b3;
+}
+
+//Animacion en la seleccion
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+
+//Contenedor de huecos
+div[ngFor] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+//Formulario
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+a {
+  margin-left: 10px;
+  color: #666;
+}
+
+//Mensaje para los errores
+div[ngIf="errorMessage"] {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}

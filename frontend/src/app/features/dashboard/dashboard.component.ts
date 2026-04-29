@@ -16,6 +16,11 @@ export class DashboardComponent implements OnInit {
   esProfesional = false;
   esAdmin = false;
 
+  imagenes = ['modelodashboard1', 'modelodashboard2'];
+  indiceActual = 0;
+  imagenActual = 'modelodashboard1';
+  intervalo: any;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -23,5 +28,48 @@ export class DashboardComponent implements OnInit {
     this.esCliente = this.user?.rol === 'CLIENTE';
     this.esProfesional = this.user?.rol === 'PROFESIONAL';
     this.esAdmin = this.user?.rol === 'ADMIN';
+    this.iniciarCarrusel();
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalo) {
+      clearInterval(this.intervalo);
+    }
+  }
+
+  iniciarCarrusel(): void {
+    this.intervalo = setInterval(() => {
+      this.indiceActual = (this.indiceActual + 1) % this.imagenes.length;
+      this.imagenActual = this.imagenes[this.indiceActual];
+    }, 3000);
+  }
+
+  imagenAnterior(): void {
+    this.intervalo = setInterval(() => {
+      this.indiceActual = (this.indiceActual - 1 + this.imagenes.length) % this.imagenes.length;
+      this.imagenActual = this.imagenes[this.indiceActual];
+      this.reiniciarCarrusel();
+    }, 3000);
+  }
+
+  imagenSiguiente(): void {
+    this.intervalo = setInterval(() => {
+    this.indiceActual = (this.indiceActual + 1) % this.imagenes.length;
+    this.imagenActual = this.imagenes[this.indiceActual];
+    this.reiniciarCarrusel();
+    }, 3000);
+  }
+
+  irAImagen(indice: number): void {
+    this.indiceActual = indice;
+    this.imagenActual = this.imagenes[this.indiceActual];
+    this.reiniciarCarrusel();
+  }
+
+  reiniciarCarrusel(): void {
+    if (this.intervalo) {
+      clearInterval(this.intervalo);
+    }
+    this.iniciarCarrusel();
   }
 }

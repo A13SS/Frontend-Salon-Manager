@@ -1,43 +1,38 @@
-<nav>
-  <div>
-    <a routerLink="/dashboard">Salon Manager</a>
+<nav class="navbar">
+  <div class="contenedor">
+    <a routerLink="/dashboard" class="titulo">Salon Manager</a>
 
-    <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span></span>
-    </button>
-
-    <div id="navbarNav">
-      <ul>
+    <div id="navbarNav" class="menu">
+      <ul class="lista-izquierda">
         <li *ngIf="authService.isAuthenticated()">
-          <a routerLink="/dashboard">Dashboard</a>
+          <a routerLink="/dashboard" class="enlace">Dashboard</a>
         </li>
         <li *ngIf="authService.isAuthenticated()">
-          <a routerLink="/citas">Mis Citas</a>
+          <a routerLink="/citas" class="enlace">Mis Citas</a>
         </li>
         <li *ngIf="authService.isAuthenticated() && user?.rol === 'CLIENTE'">
-          <a routerLink="/citas/crear">Nueva Cita</a>
+          <a routerLink="/citas/crear" class="enlace">Nueva Cita</a>
         </li>
         <li
-          *ngIf="
+          *ngIf="authService.isAuthenticated() && user?.rol === 'PROFESIONAL'">
+          <a routerLink="/citas/gestionar" class="enlace">Gestionar Citas</a>
+        </li>
+        <li *ngIf="
             authService.isAuthenticated() && (user?.rol === 'PROFESIONAL' || user?.rol === 'ADMIN')
-          "
-        >
-          <a routerLink="/servicios">Servicios</a>
+          ">
+          <a routerLink="/servicios" class="enlace">Servicios</a>
         </li>
         <li *ngIf="authService.isAuthenticated() && user?.rol === 'ADMIN'">
-          <a routerLink="/usuarios">Usuarios</a>
+          <a routerLink="/usuarios" class="enlace">Usuarios</a>
         </li>
       </ul>
 
-      <ul>
+      <ul class="lista-derecha">
         <li *ngIf="user">
-          <span> {{ user.nombre }} ({{ user.rol }}) </span>
+          <span class="usuario"> {{ user.nombre }} ({{ user.rol }}) </span>
         </li>
         <li *ngIf="authService.isAuthenticated()">
-          <button (click)="logout()">Cerrar Sesión</button>
-        </li>
-        <li *ngIf="!authService.isAuthenticated()">
-          <a routerLink="/login">Login</a>
+          <button (click)="logout()" class="boton">Cerrar Sesión</button>
         </li>
       </ul>
     </div>

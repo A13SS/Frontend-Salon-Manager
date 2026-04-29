@@ -1,77 +1,86 @@
-<div>
-  <div>
-    <div>
-      <h2>Mis Citas</h2>
-      <a routerLink="/citas/crear">Nueva Cita</a>
+<div class="contenedor">
+  <div class="encabezado">
+    <h2>Mis Citas</h2>
+    <a routerLink="/citas/crear">Nueva Cita</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div role="status">
+      <span>Cargando...</span>
     </div>
+  </div>
 
-    <div *ngIf="loading">
-      <div role="status">
-        <span>Cargando...</span>
-      </div>
-    </div>
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
 
-    <div *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
+  <div *ngIf="!loading && citas.length === 0" class="sin-citas">
+    No tienes citas programadas.
+  </div>
 
-    <div *ngIf="!loading && citas.length === 0">No tienes citas programadas.</div>
-
-    <div *ngIf="user?.rol === 'PROFESIONAL' || user?.rol === 'ADMIN'">
+  <div *ngIf="!loading && user && citas.length > 0">
+    <div *ngIf="user?.rol === 'PROFESIONAL' || user?.rol === 'ADMIN'"
+      class="filtro-fecha">
       <input type="date" [(ngModel)]="fechaBusqueda" />
-      <button (click)="buscarPorFecha()" [disabled]="!fechaBusqueda">Buscar</button>
+      <button (click)="buscarPorFecha()"
+        [disabled]="!fechaBusqueda">Buscar</button>
       <button (click)="limpiarFecha()">Limpiar</button>
     </div>
 
-    <div *ngIf="!loading && user && citas.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th *ngIf="user?.rol === 'CLIENTE'">Profesional</th>
-            <th *ngIf="user?.rol !== 'CLIENTE'">Cliente</th>
-            <th>Servicio</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let cita of citas">
-            <td>{{ cita.fechaInicio | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ cita.fechaInicio | date: 'HH:mm' }}</td>
-            <td *ngIf="user?.rol === 'CLIENTE'">{{ cita.profesionalNombre }}</td>
-            <td *ngIf="user?.rol !== 'CLIENTE'">{{ cita.clienteNombre }}</td>
-            <td>{{ cita.servicioNombre }}</td>
-            <td>
-              <span [class]="getEstadoClass(cita.estado)">
-                {{ cita.estado }}
-              </span>
-            </td>
-            <td>
+    <table class="tabla-citas">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th *ngIf="user?.rol === 'CLIENTE'">Profesional</th>
+          <th *ngIf="user?.rol !== 'CLIENTE'">Cliente</th>
+          <th>Servicio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cita of citas">
+          <td>{{ cita.fechaInicio | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ cita.fechaInicio | date: 'HH:mm' }}</td>
+          <td *ngIf="user?.rol === 'CLIENTE'">{{ cita.profesionalNombre }}</td>
+          <td *ngIf="user?.rol !== 'CLIENTE'">{{ cita.clienteNombre }}</td>
+          <td>{{ cita.servicioNombre }}</td>
+          <td>
+            <span [class]="getEstadoClass(cita.estado)">
+              {{ cita.estado }}
+            </span>
+          </td>
+          <td>
+            <div class="acciones">
               <button
                 *ngIf="user.rol === 'CLIENTE' && cita.estado === 'PENDIENTE'"
-                (click)="cancelarCita(cita.id)"
-              >
+                (click)="cancelarCita(cita.id)" class="btn-cancelar">
                 Cancelar
               </button>
 
-              <ng-container *ngIf="user.rol === 'PROFESIONAL' || user.rol === 'ADMIN'">
-                <button *ngIf="cita.estado === 'PENDIENTE'" (click)="confirmarCita(cita.id)">
+              <ng-container
+                *ngIf="user.rol === 'PROFESIONAL' || user.rol === 'ADMIN'">
+                <button *ngIf="cita.estado === 'PENDIENTE'"
+                  (click)="confirmarCita(cita.id)" class="btn-confirmar">
                   Confirmar
                 </button>
-                <button *ngIf="cita.estado === 'CONFIRMADA'" (click)="marcarAtendida(cita.id)">
+                <button *ngIf="cita.estado === 'CONFIRMADA'"
+                  (click)="marcarAtendida(cita.id)" class="btn-atender">
                   Atender
                 </button>
-                <button (click)="eliminarCita(cita.id)">Eliminar</button>
-                <button *ngIf="cita.estado === 'PENDIENTE'" (click)="cancelarCita(cita.id)">
+                <button (click)="eliminarCita(cita.id)" class="btn-eliminar">
+                  Eliminar
+                </button>
+                <button *ngIf="cita.estado === 'PENDIENTE'"
+                  (click)="cancelarCita(cita.id)" class="btn-cancelar">
                   Cancelar
                 </button>
               </ng-container>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
