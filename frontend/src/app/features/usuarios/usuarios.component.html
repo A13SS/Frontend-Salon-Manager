@@ -1,119 +1,106 @@
-<div>
-  <div>
-    <div>
-      <h2>Gestión de Usuarios</h2>
-      <span>{{ usuarios.length }} usuarios</span>
-    </div>
+<div class="contenedor">
+  <div class="encabezado">
+    <h2>Gestión de Usuarios</h2>
+    <span>{{ usuarios.length }} usuarios</span>
+  </div>
 
-    <!-- Buscar usuario por ID -->
-    <div>
-      <div>
-        <div>
-          <div>
-            <label for="searchId"> Buscar usuario por ID </label>
-            <div>
-              <input
-                type="number"
-                id="searchId"
-                [(ngModel)]="searchId"
-                placeholder="Ej: 1, 2, 3..."
-                (keyup.enter)="buscarPorId()"
-              />
-              <button type="button" (click)="buscarPorId()" [disabled]="searchLoading || !searchId">
-                <span *ngIf="searchLoading"></span>
-                <span *ngIf="!searchLoading">Buscar</span>
-              </button>
-              <button type="button" (click)="limpiarBusqueda()">Limpiar</button>
-            </div>
+  <!-- Buscar usuario por ID -->
+  <div class="busqueda">
+    <div class="busqueda-card">
+      <div class="busqueda-form">
+        <div class="form-group">
+          <label for="searchId">Buscar usuario por ID</label>
+          <div class="input-group">
+            <input type="number" id="searchId" [(ngModel)]="searchId"
+              placeholder="Ej: 1, 2, 3..." (keyup.enter)="buscarPorId()" />
+            <button type="button" (click)="buscarPorId()"
+              [disabled]="searchLoading || !searchId">
+              <span *ngIf="searchLoading" class="spinner"></span>
+              <span *ngIf="!searchLoading">Buscar</span>
+            </button>
+            <button type="button" (click)="limpiarBusqueda()">Limpiar</button>
           </div>
         </div>
+      </div>
 
-        <!-- Mensaje de error en búsqueda -->
-        <div *ngIf="searchError">
-          <i></i>
-          {{ searchError }}
-        </div>
+      <!-- Mensaje de error en búsqueda -->
+      <div *ngIf="searchError" class="error">
+        <i class="icon-error"></i> {{ searchError }}
       </div>
     </div>
+  </div>
 
-    <!-- Loading -->
-    <div *ngIf="loading">
-      <div role="status">
-        <span>Cargando...</span>
-      </div>
-      <p>Cargando usuarios...</p>
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner" role="status">
+      <span>Cargando...</span>
     </div>
+    <p>Cargando usuarios...</p>
+  </div>
 
-    <!-- Sin datos -->
-    <div *ngIf="!loading && usuarios.length === 0"><i></i>No hay usuarios registrados.</div>
+  <!-- Sin datos -->
+  <div *ngIf="!loading && usuarios.length === 0" class="sin-datos">
+    <i class="icon-empty"></i>
+    <p>No hay usuarios registrados.</p>
+  </div>
 
-    <!-- Tabla de usuarios -->
-    <div *ngIf="!loading && usuarios.length > 0">
-      <div>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Rol</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let usuario of usuarios">
-                <td>
-                  <strong>{{ usuario.id }}</strong>
-                </td>
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.email }}</td>
-                <td>{{ usuario.telefono }}</td>
-                <td>
-                  <select
-                    *ngIf="canChangeRole(usuario)"
-                    [(ngModel)]="usuario.rol"
-                    (change)="cambiarRol(usuario)"
-                    [class]="getRolClass(usuario.rol)"
-                  >
-                    <option value="CLIENTE">CLIENTE</option>
-                    <option value="PROFESIONAL">PROFESIONAL</option>
-                    <option value="ADMIN">ADMIN</option>
-                  </select>
-                  <span *ngIf="!canChangeRole(usuario)" [class]="getRolClass(usuario.rol)">
-                    {{ usuario.rol }}
-                  </span>
-                </td>
-                <td>
-                  <span [class]="usuario.activo ? 'cliente' : 'admin'">
-                    {{ usuario.activo ? 'Activo' : 'Inactivo' }}
-                  </span>
-                </td>
-                <td>
-                  <div role="group">
-                    <button
-                      *ngIf="usuario.activo"
-                      (click)="borrarLogico(usuario)"
-                      title="Desactivar usuario"
-                    >
-                      <i>Desactivar</i>
-                    </button>
-                    <button
-                      *ngIf="!usuario.activo"
-                      (click)="borrarFisico(usuario)"
-                      title="Eliminar permanentemente"
-                    >
-                      <i>Eliminar</i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <!-- Tabla de usuarios -->
+  <div *ngIf="!loading && usuarios.length > 0" class="tabla-wrapper">
+    <div class="tabla-container">
+      <table class="tabla-usuarios">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>
+              <strong>{{ usuario.id }}</strong>
+            </td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.telefono }}</td>
+            <td>
+              <select *ngIf="canChangeRole(usuario)" [(ngModel)]="usuario.rol"
+                (change)="cambiarRol(usuario)"
+                [class]="getRolClass(usuario.rol)" class="select-rol">
+                <option value="CLIENTE">CLIENTE</option>
+                <option value="PROFESIONAL">PROFESIONAL</option>
+                <option value="ADMIN">ADMIN</option>
+              </select>
+              <span *ngIf="!canChangeRole(usuario)"
+                [class]="getRolClass(usuario.rol)" class="badge-rol">
+                {{ usuario.rol }}
+              </span>
+            </td>
+            <td>
+              <span [class]="usuario.activo ? 'activo' : 'inactivo'"
+                class="badge-estado">
+                {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td>
+              <div class="acciones" role="group">
+                <button *ngIf="usuario.activo" (click)="borrarLogico(usuario)"
+                  title="Desactivar usuario" class="btn-desactivar">
+                  <i class="icon-desactivar"></i>Desactivar
+                </button>
+                <button *ngIf="!usuario.activo" (click)="borrarFisico(usuario)"
+                  title="Eliminar permanentemente" class="btn-eliminar">
+                  <i class="icon-eliminar"></i>Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

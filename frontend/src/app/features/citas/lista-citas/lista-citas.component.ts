@@ -6,13 +6,12 @@ import { Cita } from '../../../shared/models/cita.model';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-lista-citas',
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './lista-citas.component.html',
-  styleUrls: ['./lista-citas.component.scss']
+  styleUrls: ['./lista-citas.component.scss'],
 })
 export class ListaCitasComponent implements OnInit {
   citas: Cita[] = [];
@@ -21,9 +20,11 @@ export class ListaCitasComponent implements OnInit {
   user: any = null;
   fechaBusqueda: string = '';
 
+  citaSeleccionada: any = null;
+
   constructor(
     private citaService: CitaService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +55,7 @@ export class ListaCitasComponent implements OnInit {
         error: (error) => {
           this.errorMessage = 'Error al cargar las citas';
           this.loading = false;
-        }
+        },
       });
     } else {
       this.citaService.getCitasPorProfesional(userId).subscribe({
@@ -65,12 +66,12 @@ export class ListaCitasComponent implements OnInit {
         error: (error) => {
           this.errorMessage = 'Error al cargar las citas';
           this.loading = false;
-        }
+        },
       });
     }
   }
 
-   buscarPorFecha(): void {
+  buscarPorFecha(): void {
     if (!this.fechaBusqueda) return;
     this.loading = true;
     this.errorMessage = '';
@@ -82,7 +83,7 @@ export class ListaCitasComponent implements OnInit {
       error: () => {
         this.errorMessage = 'Error al buscar citas por fecha';
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -99,7 +100,7 @@ export class ListaCitasComponent implements OnInit {
         },
         error: (error) => {
           alert('Error al confirmar la cita');
-        }
+        },
       });
     }
   }
@@ -112,7 +113,7 @@ export class ListaCitasComponent implements OnInit {
         },
         error: (error) => {
           alert('Error al marcar como atendida');
-        }
+        },
       });
     }
   }
@@ -127,13 +128,12 @@ export class ListaCitasComponent implements OnInit {
           alert('Error al eliminar la cita');
 
           setTimeout(() => {
-          this.cargarCitas();
-        }, 200);
-        }
+            this.cargarCitas();
+          }, 200);
+        },
       });
     }
   }
-
 
   cancelarCita(id: number): void {
     if (confirm('¿Estás seguro de cancelar esta cita?')) {
@@ -143,24 +143,31 @@ export class ListaCitasComponent implements OnInit {
         },
         error: (error) => {
           alert('Error al cancelar la cita');
-        }
+        },
       });
     }
   }
 
-  getEstadoClass(estado: string): string {
-  switch (estado) {
-    case 'PENDIENTE':
-      return 'badge bg-warning text-dark';
-    case 'CONFIRMADA':
-      return 'badge bg-primary';
-    case 'ATENDIDA':
-      return 'badge bg-success';
-    case 'CANCELADA':
-      return 'badge bg-danger';
-    default:
-      return 'badge bg-secondary';
+  verDetalle(cita: any): void {
+    this.citaSeleccionada = { ...cita }; //Copia de la cita para evitar referencias
   }
-}
-  
+
+  cerrarDetalle(): void {
+    this.citaSeleccionada = null;
+  }
+
+  getEstadoClass(estado: string): string {
+    switch (estado) {
+      case 'PENDIENTE':
+        return 'badge bg-warning text-dark';
+      case 'CONFIRMADA':
+        return 'badge bg-primary';
+      case 'ATENDIDA':
+        return 'badge bg-success';
+      case 'CANCELADA':
+        return 'badge bg-danger';
+      default:
+        return 'badge bg-secondary';
+    }
+  }
 }

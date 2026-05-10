@@ -1,0 +1,148 @@
+$rosa: #D4336F;
+$verde: #28a745;
+$rojo: #dc3545;
+$gris: #6c757d;
+$gris-claro: #F5F5F5;
+$blanco: #fff;
+//Contenedor
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+//Título
+h2 {
+    color: $rosa;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid $rosa;
+}
+
+//Loading
+.loading {
+    text-align: center;
+    padding: 50px;
+    color: $gris;
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid $gris-claro;
+    border-top-color: $rosa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+//Sin servicios
+.empty {
+    text-align: center;
+    padding: 50px;
+    color: $gris;
+    background: $gris-claro;
+    border-radius: 10px;
+}
+
+//Lista de tarjetas
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+//Tarjeta individual
+.card {
+    background: $blanco;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $gris-claro;
+}
+
+.title {
+    color: #2C3E5A;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+//Badge de estado
+.badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    &.active {
+        background: rgba(40, 167, 69, 0.15);
+        color: $verde;
+    }
+    &.inactive {
+        background: rgba(220, 53, 69, 0.15);
+        color: $rojo;
+    }
+}
+
+//Descripcion
+.desc {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+//Info de la duracion y precio
+.info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+    li {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px dashed $gris-claro;
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+.label {
+    color: $gris;
+    font-weight: 500;
+}
+
+//Footer de tarjeta
+.card-footer {
+    padding-top: 15px;
+    border-top: 1px solid $gris-claro;
+    text-align: center;
+    small {
+        color: $gris;
+        font-size: 0.85rem;
+    }
+}

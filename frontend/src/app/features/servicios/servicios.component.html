@@ -1,54 +1,52 @@
-<div>
-  <div>
+<div class="container">
+  <div class="content">
     <h2>Servicios Ofertados</h2>
 
     <!-- Cargador giratorio -->
-    <div *ngIf="loading">
-      <div role="status">
+    <div class="loading" *ngIf="loading">
+      <div class="spinner" role="status">
         <span>Cargando...</span>
       </div>
       <p>Cargando servicios...</p>
     </div>
 
     <!-- Mensaje sin servicios -->
-    <div *ngIf="!loading && servicios.length === 0">
-      <i></i>
-      No hay servicios disponibles en este momento.
+    <div class="empty" *ngIf="!loading && servicios.length === 0">
+      <i class="icon"></i>
+      <p>No hay servicios disponibles en este momento.</p>
     </div>
 
     <!-- Lista de servicios -->
-    <div *ngIf="!loading && servicios.length > 0">
-      <div *ngFor="let servicio of servicios">
-        <div>
-          <div>
-            <div>
-              <h5>{{ servicio.nombre }}</h5>
-              <span [class]="servicio.activo ? 'cliente' : 'admin'">
-                {{ servicio.activo ? 'Activo' : 'Inactivo' }}
-              </span>
-            </div>
+    <div class="list" *ngIf="!loading && servicios.length > 0">
+      <div class="card" *ngFor="let servicio of servicios">
+        <div class="card-header">
+          <h5 class="title">{{ servicio.nombre }}</h5>
+          <span class="badge" [class.active]="servicio.activo"
+            [class.inactive]="!servicio.activo">
+            {{ servicio.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
 
-            <p>
-              {{ servicio.descripcion || 'Sin descripción disponible.' }}
-            </p>
+        <p class="desc">
+          {{ servicio.descripcion || 'Sin descripción disponible.' }}
+        </p>
 
-            <ul>
-              <li>
-                <span><i></i>Duración:</span>
-                <strong>{{ servicio.duracionMin }} min</strong>
-              </li>
-              <li>
-                <span><i></i>Precio:</span>
-                <strong>{{ servicio.precio | number: '1.2-2' }}€</strong>
-              </li>
-            </ul>
-          </div>
+        <ul class="info">
+          <li>
+            <span class="label">Duración:</span>
+            <strong>{{ servicio.duracionMin }} min</strong>
+          </li>
+          <li>
+            <span class="label">Precio:</span>
+            <strong>{{ servicio.precio | number: '1.2-2' }}€</strong>
+          </li>
+        </ul>
 
-          <div>
-            <small>
-              {{ servicio.activo ? 'Disponible para reservar' : 'Temporalmente no disponible' }}
-            </small>
-          </div>
+        <div class="card-footer">
+          <small>
+            {{ servicio.activo ? 'Disponible para reservar' :
+            'Temporalmente no disponible' }}
+          </small>
         </div>
       </div>
     </div>

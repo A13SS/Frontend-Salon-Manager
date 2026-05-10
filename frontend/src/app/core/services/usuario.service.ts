@@ -24,14 +24,17 @@ export class UsuarioService {
   }
 
   cambiarRol(id: number, nuevoRol: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/rol?nuevoRol=${nuevoRol}`, {});
+    return this.http.put(`${this.apiUrl}/${id}/rol?nuevoRol=${nuevoRol}`, {}, 
+      { responseType: 'text' });
   }
 
   borrarLogico(id: number): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/${id}/desactivar`, {responseType: 'text'});
+    return this.http.patch(`${this.apiUrl}/${id}/desactivar`, {}, 
+      { responseType: 'text' });
   }
 
   borrarFisico(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`, {responseType: 'text'});
+    return this.http.delete(`${this.apiUrl}/${id}`, 
+      { responseType: 'text' });
   }
 }

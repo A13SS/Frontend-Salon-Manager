@@ -137,7 +137,7 @@ $info: #3498DB;
         color: $blanco;
         th {
             padding: 16px 12px;
-            text-align: left;
+            text-align: center;
             font-weight: 600;
             font-size: 0.9rem;
             text-transform: uppercase;
@@ -146,6 +146,7 @@ $info: #3498DB;
     }
     tbody {
         tr {
+            text-align: center;
             border-bottom: 1px solid $gris-claro;
             transition: background-color 0.3s ease;
             &:hover {
@@ -194,11 +195,13 @@ $info: #3498DB;
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    justify-content: center;
     button {
         padding: 8px 14px;
         border: none;
         border-radius: 6px;
         font-size: 0.85rem;
+        font-family: 'Edu AU VIC WA NT Hand', cursive !important;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -206,7 +209,7 @@ $info: #3498DB;
             background-color: $info;
             color: $blanco;
             &:hover {
-                background-color: darken($info, 10%);
+                background-color: color-mix(in srgb, $rosa, black 10%);
                 transform: translateY(-2px);
             }
         }
@@ -214,7 +217,7 @@ $info: #3498DB;
             background-color: $exito;
             color: $blanco;
             &:hover {
-                background-color: darken($exito, 10%);
+                background-color: color-mix(in srgb, $rosa, black 10%);
                 transform: translateY(-2px);
             }
         }
@@ -222,7 +225,7 @@ $info: #3498DB;
             background-color: $peligro;
             color: $blanco;
             &:hover {
-                background-color: darken($peligro, 10%);
+                background-color: color-mix(in srgb, $rosa, black 10%);
                 transform: translateY(-2px);
             }
         }
@@ -233,6 +236,117 @@ $info: #3498DB;
                 background-color: $azul-oscuro;
                 transform: translateY(-2px);
             }
+        }
+        &.btn-detalle {
+            background-color: $azul-claro;
+            color: $blanco;
+            &:hover {
+                background-color: $azul-oscuro;
+                transform: translateY(-2px);
+            }
+        }
+    }
+}
+
+//Modal de detalle de cita
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+//Contenido del modal
+.modal-contenido {
+    background: $blanco;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+//Header del modal
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 2px solid $gris-claro;
+    h3 {
+        color: $azul-oscuro;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0;
+    }
+    .modal-cerrar {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: $gris;
+        cursor: pointer;
+        transition: color 0.2s ease;
+        line-height: 1;
+        &:hover {
+            color: $peligro;
+        }
+    }
+}
+
+//Body del modal
+.modal-body {
+    padding: 25px;
+}
+
+//Seccion de detalle
+.detalle-seccion {
+    margin-bottom: 25px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    h4 {
+        color: $rosa;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 12px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed $gris-claro;
+    }
+}
+
+//Grid de detalle
+.detalle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px 20px;
+    p {
+        margin: 0;
+        color: $azul-oscuro;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        strong {
+            color: $azul-claro;
+            font-weight: 600;
         }
     }
 }

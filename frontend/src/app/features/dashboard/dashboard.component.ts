@@ -41,23 +41,19 @@ export class DashboardComponent implements OnInit {
     this.intervalo = setInterval(() => {
       this.indiceActual = (this.indiceActual + 1) % this.imagenes.length;
       this.imagenActual = this.imagenes[this.indiceActual];
-    }, 3000);
+    }, 4000);
   }
 
   imagenAnterior(): void {
-    this.intervalo = setInterval(() => {
       this.indiceActual = (this.indiceActual - 1 + this.imagenes.length) % this.imagenes.length;
       this.imagenActual = this.imagenes[this.indiceActual];
       this.reiniciarCarrusel();
-    }, 3000);
   }
 
   imagenSiguiente(): void {
-    this.intervalo = setInterval(() => {
     this.indiceActual = (this.indiceActual + 1) % this.imagenes.length;
     this.imagenActual = this.imagenes[this.indiceActual];
     this.reiniciarCarrusel();
-    }, 3000);
   }
 
   irAImagen(indice: number): void {

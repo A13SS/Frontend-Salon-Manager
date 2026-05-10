@@ -53,6 +53,12 @@
           </td>
           <td>
             <div class="acciones">
+
+              <button *ngIf="user.rol !== 'CLIENTE'" (click)="verDetalle(cita)"
+                class="btn-detalle" title="Ver detalles de la cita">
+                Detalle
+              </button>
+
               <button
                 *ngIf="user.rol === 'CLIENTE' && cita.estado === 'PENDIENTE'"
                 (click)="cancelarCita(cita.id)" class="btn-cancelar">
@@ -83,4 +89,57 @@
       </tbody>
     </table>
   </div>
-</div>
+
+  <div *ngIf="citaSeleccionada" class="modal-overlay" (click)="cerrarDetalle()">
+    <div class="modal-contenido" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <h3>Detalle de Cita #{{ citaSeleccionada.id }}</h3>
+        <button class="modal-cerrar" (click)="cerrarDetalle()">✕</button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="detalle-seccion">
+          <h4>Cliente</h4>
+          <div class="detalle-grid">
+            <p><strong>Nombre:</strong> {{ citaSeleccionada.clienteNombre }}</p>
+          </div>
+        </div>
+
+        <div class="detalle-seccion">
+          <h4>Profesional</h4>
+          <div class="detalle-grid">
+            <p><strong>Nombre:</strong> {{ citaSeleccionada.profesionalNombre }}
+            </p>
+          </div>
+        </div>
+
+        <div class="detalle-seccion">
+          <h4>Fecha y Hora</h4>
+          <div class="detalle-grid">
+            <p><strong>Fecha:</strong> {{ citaSeleccionada.fechaInicio |
+              date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+
+        <div class="detalle-seccion">
+          <h4>Información adicional</h4>
+          <div class="detalle-grid">
+            <p><strong>Estado:</strong>
+              <span [class]="getEstadoClass(citaSeleccionada.estado)">
+                {{ citaSeleccionada.estado }}
+              </span>
+            </p>
+            <p *ngIf="citaSeleccionada.alergias">
+              <strong>Alergias:</strong> {{ citaSeleccionada.alergias }}
+            </p>
+            <p *ngIf="citaSeleccionada.observaciones">
+              <strong>Observaciones:</strong> {{ citaSeleccionada.observaciones
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

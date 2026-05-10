@@ -1,119 +1,186 @@
+$rosa: #D4336F;
+$rosa-claro: #e998db;
+$verde: #28a745;
+$info: #003f83;
+$boton: #007bff;
+$rojo: #dc3545;
+$error: #721c24;
+$gris: #6c757d;
+$blanco: #fff;
+.form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: $blanco;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-container {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid $gris;
+    h3 {
+        color: $rosa;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0;
+    }
+}
+
 //Huecos libres
 .hueco-libre {
-  background-color: #28a745;
-  color: white;
-  border: 2px solid #28a745;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: $verde;
+    color: white;
+    border: 2px solid $verde;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .hueco-libre:hover {
-  background-color: #218838;
+    background-color: $verde;
 }
 
 //Huecos ocupados
 .hueco-ocupado {
-  background-color: #dc3545;
-  color: white;
-  border: 2px solid #dc3545;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: not-allowed;
-  opacity: 0.6;
+    background-color: $rojo;
+    color: $blanco;
+    border: 2px solid $rojo;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 //Huecos seleccionados
 .hueco-seleccionado {
-  background-color: #007bff;
-  border-color: #0056b3;
-  color: white;
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.4);
-  transform: scale(1.1);
-  font-weight: 700;
-  animation: pulse 0.5s ease;
+    background-color: $info;
+    border-color: $info;
+    color: $blanco;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.4);
+    transform: scale(1.1);
+    font-weight: 600;
+    animation: pulse 0.4s ease;
 }
 
 .hueco-seleccionado:hover {
-  background-color: #0056b3;
+    background-color: $info;
 }
 
 //Animacion en la seleccion
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1.1);
-  }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1.1);
+    }
 }
-
 
 //Contenedor de huecos
 div[ngFor] {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
 }
 
 //Formulario
 form {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
 form div {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #0056b3;
+    font-family: 'Edu AU VIC WA NT Hand', cursive !important;
 }
 
-input, select, textarea {
-  width: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+input,
+select,
+textarea {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Edu AU VIC WA NT Hand', cursive !important;
 }
 
 button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: $boton;
+    color: $blanco;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Edu AU VIC WA NT Hand', cursive !important;
 }
 
 button[type="submit"]:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 a {
-  margin-left: 10px;
-  color: #666;
+    margin-left: 10px;
+    color: $gris;
+}
+
+a:hover {
+    color: $rosa;
+    text-decoration: underline;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: $rosa;
+    box-shadow: 0 0 0 2px rgba(212, 51, 111, 0.2);
 }
 
 //Mensaje para los errores
 div[ngIf="errorMessage"] {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
+    background-color: #f8d7da;
+    color: $error;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+//Animación suave para el formulario al cargar
+form {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
