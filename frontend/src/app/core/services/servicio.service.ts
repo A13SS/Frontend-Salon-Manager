@@ -15,7 +15,7 @@ export interface Servicio {
   providedIn: 'root'
 })
 export class ServicioService {
-  private apiUrl = '/api/servicios';
+  private apiUrl = 'https://salon-manager-syu8.onrender.com/api/servicios';
 
   constructor(private http: HttpClient) {}
 

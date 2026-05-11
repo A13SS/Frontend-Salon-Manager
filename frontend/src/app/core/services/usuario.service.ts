@@ -7,7 +7,7 @@ import { Usuario } from '../../shared/models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = '/api/usuarios';
+  private apiUrl = 'https://salon-manager-syu8.onrender.com/api/usuarios';
 
   constructor(private http: HttpClient) {}
 

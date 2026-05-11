@@ -13,7 +13,7 @@ export interface Hueco {
   providedIn: 'root'
 })
 export class CitaService {
-  private apiUrl = '/api/citas';
+  private apiUrl = 'https://salon-manager-syu8.onrender.com/api/citas';
 
   constructor(private http: HttpClient) {}
 
