@@ -5,11 +5,16 @@ import { AuthService } from '../services/auth.service';
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
+  const user = authService.getCurrentUser();
 
-  if (authService.isAuthenticated()) {
-    return true;
+  //Roles requeridos definidos en la ruta
+  const requiredRoles = route.data['roles'] as string[];
+
+  // i no hay usuario o no tiene el rol necesario, redirige al login
+  if (!user || !requiredRoles.includes(user.rol)) {
+    console.warn(`Acceso denegado: Se requiere rol ${requiredRoles}`);
+    return router.parseUrl('/login');
   }
 
-  router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-  return false;
+  return true;
 };
