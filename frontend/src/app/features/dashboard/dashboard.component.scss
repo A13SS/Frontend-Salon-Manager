@@ -249,7 +249,7 @@ $peligro: #E74C3C;
 //Grid de marcas
 .marcas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
     align-items: center;
     justify-items: center;
@@ -261,10 +261,12 @@ $peligro: #E74C3C;
     padding: 20px;
     border-radius: 10px;
     transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
     img {
         max-width: 100%;
         height: auto;
-        max-height: 160px;
+        max-height: 200px;
         object-fit: contain;
         filter: grayscale(100%);
         transition: all 0.3s ease;
