@@ -201,10 +201,4 @@ export class CrearCitaComponent implements OnInit {
       },
     });
   }
-
-  //Ese metodo se usara para el CSS
-  getHuecoClass(hueco: Hueco): string {
-    if (hueco.disponible) return 'disponible';
-    return 'ocupado';
-  }
 }
