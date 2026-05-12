@@ -157,6 +157,29 @@ $peligro: #E74C3C;
     }
 }
 
+//Sobre nosotros
+.sobre-nosotros {
+    background: $blanco;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    h3 {
+        color: $rosa;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    p {
+        color: $gris;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+}
+
 //Seccion de las targetas
 .seccion {
     display: grid;
@@ -204,5 +227,116 @@ $peligro: #E74C3C;
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(212, 51, 111, 0.4);
+    }
+}
+
+//Marcas con las que trabajamos
+.marcas {
+    background: $blanco;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    h3 {
+        color: $rosa;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+}
+
+//Grid de marcas
+.marcas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    align-items: center;
+    justify-items: center;
+}
+
+//Cada marca
+.marca-item {
+    background: $blanco;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    img {
+        max-width: 100%;
+        height: auto;
+        max-height: 100px;
+        object-fit: contain;
+        filter: grayscale(100%);
+        transition: all 0.3s ease;
+    }
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        img {
+            filter: grayscale(0%);
+        }
+    }
+}
+
+//Footer
+.footer {
+    background: $azul-oscuro;
+    color: $blanco;
+    padding: 40px 20px 20px;
+    border-radius: 15px;
+    margin-top: 40px;
+}
+
+//Contenido del footer
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+//Cada seccion del footer
+.footer-section {
+    h4 {
+        color: $rosa;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    p {
+        color: $gris;
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+}
+
+//Links de redes sociales
+.social-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    color: $blanco;
+    text-decoration: none;
+    padding: 5px 15px;
+    background: rgba(212, 51, 111, 0.3);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    &:hover {
+        background: $rosa;
+        transform: translateY(-2px);
+    }
+}
+
+//Parte inferior del footer
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    p {
+        color: $gris;
+        margin: 0;
     }
 }
